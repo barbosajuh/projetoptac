@@ -65,3 +65,34 @@ export default function App() {
   const handleRemoveIdea = (id) => {
     setIdeas((prevIdeas) => prevIdeas.filter((idea) => idea.id !== id));
   };
+  <ul className="idea-list">
+          {ideas.length === 0 ? (
+            <p className="empty-message">Nenhuma ideia cadastrada ainda.</p>
+          ) : (
+            ideas.map((idea) => (
+              <li key={idea.id} className={`idea-item ${idea.completed ? 'completed' : ''}`}>
+                <label className="idea-content">
+                  <input
+                    type="checkbox"
+                    checked={idea.completed}
+                    onChange={() => handleToggleCompleted(idea.id)}
+                  />
+                  <span>{idea.text}</span>
+                </label>
+                <button
+                  type="button"
+                  className="delete-btn"
+                  onClick={() => handleRemoveIdea(idea.id)}
+                  title="Remover ideia"
+                >
+                  ✕
+                </button>
+              </li>
+            ))
+          )}
+        </ul> 
+  const totalIdeas = ideas.length;
+  const completedIdeas = ideas.filter((idea) => idea.completed).length;
+  <footer className="app-footer">
+          <p>{totalIdeas} {totalIdeas === 1 ? 'ideia' : 'ideias'} no painel · {completedIdeas} concluída{completedIdeas === 1 ? '' : 's'}</p>
+        </footer>
