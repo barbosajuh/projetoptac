@@ -26,6 +26,21 @@ export default function App() {
     setNewIdeaText("");
   };
 
+  const handleToggleCompleted = (id) => {
+    setIdeas((prevIdeas) =>
+      prevIdeas.map((idea) =>
+        idea.id === id ? { ...idea, completed: !idea.completed } : idea
+      )
+    );
+  };
+
+  const handleRemoveIdea = (id) => {
+    setIdeas((prevIdeas) => prevIdeas.filter((idea) => idea.id !== id));
+  };
+
+  const totalIdeas = ideas.length;
+  const completedIdeas = ideas.filter((idea) => idea.completed).length;
+
   return (
     <div className="app-container">
       <div className="card">
@@ -49,23 +64,8 @@ export default function App() {
           </div>
           {error && <span className="error-message">{error}</span>}
         </form>
-      </div>
-    </div>
-  );
-}
 
-  const handleToggleCompleted = (id) => {
-    setIdeas((prevIdeas) =>
-      prevIdeas.map((idea) =>
-        idea.id === id ? { ...idea, completed: !idea.completed } : idea
-      )
-    );
-  };
-
-  const handleRemoveIdea = (id) => {
-    setIdeas((prevIdeas) => prevIdeas.filter((idea) => idea.id !== id));
-  };
-  <ul className="idea-list">
+        <ul className="idea-list">
           {ideas.length === 0 ? (
             <p className="empty-message">Nenhuma ideia cadastrada ainda.</p>
           ) : (
@@ -90,9 +90,12 @@ export default function App() {
               </li>
             ))
           )}
-        </ul> 
-  const totalIdeas = ideas.length;
-  const completedIdeas = ideas.filter((idea) => idea.completed).length;
-  <footer className="app-footer">
+        </ul>
+
+        <footer className="app-footer">
           <p>{totalIdeas} {totalIdeas === 1 ? 'ideia' : 'ideias'} no painel · {completedIdeas} concluída{completedIdeas === 1 ? '' : 's'}</p>
         </footer>
+      </div>
+    </div>
+  );
+}
