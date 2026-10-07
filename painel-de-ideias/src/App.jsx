@@ -53,3 +53,15 @@ export default function App() {
     </div>
   );
 }
+
+  const handleToggleCompleted = (id) => {
+    setIdeas((prevIdeas) =>
+      prevIdeas.map((idea) =>
+        idea.id === id ? { ...idea, completed: !idea.completed } : idea
+      )
+    );
+  };
+
+  const handleRemoveIdea = (id) => {
+    setIdeas((prevIdeas) => prevIdeas.filter((idea) => idea.id !== id));
+  };
